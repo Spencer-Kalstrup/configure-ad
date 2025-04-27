@@ -34,7 +34,7 @@ Click "Create".
 <p><img src="https://i.imgur.com/AywQdZt.png" height="80%" width="80%"/></p>
 <br />
 Name the resource group "Active-Directory-Lab" and set the region to Canada Central. The region needs to be the same for the client virtual machine. Click create.
-<p><img src="https://i.imgur.com/hLst4wt.png" height="80%" width="80%" alt="Disk Sanitization Steps"/></p>
+<p><img src="https://i.imgur.com/hLst4wt.png" height="80%" width="80%"/></p>
 <br />
 Click "Virtual Machines".
 <p><img src="https://i.imgur.com/88g7Zuv.png" height="80%" width="80%"/></p>
@@ -378,16 +378,9 @@ Click the save icon.
 Save the file to the desktop and name it C"reate-users".
 <p><img src="https://i.imgur.com/lYtTCLF.png" height ="80%" width="80%"/></p>
 <br />
-
-
-
-Copy THIS SCRIPT into the application. Click the "run script" icon and click "OK".
-<p><img src="" height ="80%" width="80%"/></p>
+Copy <a href="https://github.com/Spencer-Kalstrup/AD-Gen-Names-Create-Users/blob/main/README.md">this script</a> into the application. Click the "run script" icon and click "OK".
+<p><img src="https://i.imgur.com/yew73ms.png" height ="80%" width="80%"/></p>
 <br />
-
-
-
-
 Observe the new users being created.
 <p><img src="https://i.imgur.com/EXsQEX1.png" height ="80%" width="80%"/></p>
 <br />
