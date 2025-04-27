@@ -19,8 +19,10 @@ This tutorial outlines the implementation of on-premises Active Directory within
 
 - Create Domain Controller and Client in Azure
 - Install Active Directory
-- Step 3
-- Step 4
+- Create Domain Admin User
+- Connect the Client to the Domain
+- Setup Remote Desktop for Non-Administrative Users
+- Create Additional Users
 
 
 
@@ -112,6 +114,8 @@ Click "Apply".
 <br />
 The Domain Controller is now setup and ready to test!
 
+
+
 <h2>Creating and Configuring a Client in Azure</h2>
 Navigate to "Virtual Machines".
 <p><img src="https://i.imgur.com/Z1LE57L.png" height="80%" width="80%"/></p>
@@ -167,15 +171,240 @@ The client Virtual Machine is now connected to the Domain Controller!
 
 
 <h2>Installing Active Directory</h2>
-
-<p><img src="" height="80%" width="80%"/></p>
+Inside the Domain Controller Server Manager, click "Add roles and features".
+<p><img src="https://i.imgur.com/u0Hrzh9.png" height="80%" width="80%"/></p>
+<br />
+Click "Next".
+<p><img src="https://i.imgur.com/x6RMFJ9.png" height="80%" width="80%"/></p>
+<br />
+Click "Role based or feature-based installation".
+<p><img src="https://i.imgur.com/MgcJxzX.png" height="80%" width="80%"/></p>
+<br />
+Make sure the selected server is the private IP address of the Domain Controller, 10.0.0.4 in this case.
+<p><img src="https://i.imgur.com/4Y1aPXH.png" height="80%" width="80%"/></p>
+<br />
+Check the box next to "Actice Directory Domain Service".
+<p><img src="https://i.imgur.com/KHWChNa.png" height="80%" width="80%"/></p>
+<br />
+Click "Add Features".
+<p><img src="https://i.imgur.com/lD0Bn0I.png" height="80%" width="80%"/></p>
+<br />
+Click "Next".
+<p><img src="https://i.imgur.com/nkAnlfn.png" height="80%" width="80%"/></p>
+<br />
+Click "Next".
+<p><img src="https://i.imgur.com/Sc8pSpB.png" height="80%" width="80%"/></p>
+<br />
+Click "Next".
+<p><img src="https://i.imgur.com/ZqeDRJZ.png" height="80%" width="80%"/></p>
+<br />
+Check the box next to "Restart the destination server automatically if required". Click "Yes". Click "Install"
+<p><img src="https://i.imgur.com/qlKfTIS.png" height="80%" width="80%"/></p>
+<br />
+Once the installation is completed, the Virtual Machine will restart.
+<p><img src="https://i.imgur.com/Eg4kwpS.png" height="80%" width="80%"/></p>
+<br />
+After the Domain Controller restarts, log back in and click the flag icon in the top right corner.
+<p><img src="https://i.imgur.com/9v5u03K.png" height="80%" width="80%"/></p>
+<br />
+Click "Promote this server to a domain controller".
+<p><img src="https://i.imgur.com/Xvl265Y.png" height="80%" width="80%"/></p>
+<br />
+Click the circle next to "Add a new forest". For the "Root domain name", enter "mydomain.com". Click "Next".
+<p><img src="https://i.imgur.com/dsx3t1e.png" height="80%" width="80%"/></p>
+<br />
+Create a password, for this lab we will use "Cyberlabe123!". Click "Next".
+<p><img src="https://i.imgur.com/qzvPjCL.png" height="80%" width="80%"/></p>
+<br />
+The box next to "Create DNS Delegation" should NOT be marked. Click "Next".
+<p><img src="https://i.imgur.com/TdXGklU.png" height="80%" width="80%"/></p>
+<br />
+The "NetBIOS domain name" should be MYDOMAIN. Click "Next".
+<p><img src="https://i.imgur.com/mAjwMox.png" height="80%" width="80%"/></p>
+<br />
+Click "Next".
+<p><img src="https://i.imgur.com/qfX6A2T.png" height="80%" width="80%"/></p>
+<br />
+Click "Next".
+<p><img src="https://i.imgur.com/PBSjnUX.png" height="80%" width="80%"/></p>
+<br />
+Click "Install".
+<p><img src="https://i.imgur.com/SigaqqN.png" height="80%" width="80%"/></p>
+<br />
+Restart Remote Desktop. When the login screen appears, it should say "User@Domain or Domain\Uer"
+<p><img src="https://i.imgur.com/Kc55rOI.png" height="80%" width="80%"/></p>
+<br />
+Login using either "labuser@mydomain.com" or "mydomain.com\labuser"
+<p><img src="https://i.imgur.com/xed9dv1.png" height="80%" width="80%"/></p>
 <br />
 
-<p><img src="" height="80%" width="80%"/></p>
+The Domain Controller Active Directory is now Configured!
+
+
+
+<h2>Connecting the Client to the Domain</h2>
+While logged into the Domain Controller as "Jane Doe" or our Admin user, right click the windows icon and click "Windows Administrative Tools", then "Active Directory Users and Computers".
+<p><img src="https://i.imgur.com/LoPFOoB.png" height ="80%" width="80%"/></p>
+<br />
+Right-click mydomain.com, hover over "New", click "Organizational Unit".
+<p><img src="https://i.imgur.com/fTTJZKf.png" height ="80%" width="80%"/></p>
+<br />
+Enter "_EPLOYEES". Click "OK".
+<p><img src="https://i.imgur.com/Y2SfONB.png" height ="80%" width="80%"/></p>
+<br />
+Repeat the process for and name the new unit "_ADMINS".
+<p><img src="<p><img src="https://i.imgur.com/eXyE1DY.png" height ="80%" width="80%"/></p>
+" height ="80%" width="80%"/></p>
+<br />
+Enter the new folder "_ADMINS".
+<p><img src="https://i.imgur.com/NkbeCXs.png" height ="80%" width="80%"/></p>
+<br />
+Right-click the blank area, hover over new, click "User".
+<p><img src="https://i.imgur.com/8MSXMRh.png" height ="80%" width="80%"/></p>
+<br />
+Create a new user for the domain. In this lab the user named "Jane Doe".
+<p><img src="https://i.imgur.com/ClYxccj.png" height ="80%" width="80%"/></p>
+<br />
+In the "_ADMINS" folder, right click "Jane Doe". Click "Properties". 
+<p><img src="https://i.imgur.com/HDWO4gT.png" height ="80%" width="80%"/></p>
+<br />
+Click the "Member Of" tab the click "Add".
+<p><img src="https://i.imgur.com/Z7RSGJk.png" height ="80%" width="80%"/></p>
+<br />
+Type "Domain Admins". Click "Check Names". Click "OK".
+<p><img src="https://i.imgur.com/S5Ry2C1.png" height ="80%" width="80%"/></p>
+<br />
+Click "Apply" then click "OK".
+<p><img src="https://i.imgur.com/0FzefWy.png" height ="80%" width="80%"/></p>
+<br />
+Log off of the domain controller by pressing CTRL + R and typing "logoff".
+<p><img src="https://i.imgur.com/Y4kXCgE.png" height ="80%" width="80%"/></p>
+<br />
+Log back into the domain controller with the new admin account.
+<p><img src="https://i.imgur.com/9PnLudu.png" height ="80%" width="80%"/></p>
+<br />
+Log in to the Client virtual machine. Right-click the windows icon. Select "System".
+<p><img src="https://i.imgur.com/clzsAeP.png" height ="80%" width="80%"/></p>
+<br />
+Scroll down and click "Rename this PC (advanced).
+<p><img src="https://i.imgur.com/H5ZR1Jx.png" height ="80%" width="80%"/></p>
+<br />
+Click "Change".
+<p><img src="https://i.imgur.com/T7IiiqC.png" height ="80%" width="80%"/></p>
+<br />
+Click the circle next to "Domain". Enter "mydomain.com". Click "OK".
+<p><img src="https://i.imgur.com/iIlckIp.png" height ="80%" width="80%"/></p>
+<br />
+Enter the new admin account.
+<p><img src="https://i.imgur.com/ZpbsmQ6.png" height ="80%" width="80%"/></p>
+<br />
+Close out of the windows to show the pop-up. Click "OK"
+<p><img src="https://i.imgur.com/0I2JUEw.png" height ="80%" width="80%"/></p>
+<br />
+Click "OK"
+<p><img src="https://i.imgur.com/OzB9O4j.png" height ="80%" width="80%"/></p>
+<br />
+Click "Restart Now"
+<p><img src="https://i.imgur.com/udLAve8.png" height ="80%" width="80%"/></p>
+<br />
+After the Client Virtual Machine restarts, navigate to the domain controller and type "active directory users and computers" into the windows search bar. Open the application.
+<p><img src="https://i.imgur.com/wq2lUvc.png" height ="80%" width="80%"/></p>
+<br />
+Click the drop box next to "mydomain.com". Client-1 should show up.
+<p><img src="https://i.imgur.com/8muJvcg.png" height ="80%" width="80%"/></p>
+<br />
+Right-click "mydomain.com". Hover over "New", click "Organizational Unit".
+<p><img src="https://i.imgur.com/u0b37BG.png" height ="80%" width="80%"/></p>
+<br />
+Name the new unit "_CLIENTS".
+<p><img src="https://i.imgur.com/qiGfexa.png" height ="80%" width="80%"/></p>
+<br />
+Double-click "Computers". Click and drag "client-1" into the "_CLIENTS" organizational unit.
+<p><img src="https://i.imgur.com/64M7GWK.png" height ="80%" width="80%"/></p>
+<br />
+Click "Yes".
+<p><img src="https://i.imgur.com/aXGChXF.png" height ="80%" width="80%"/></p>
+<br />
+Right-click "mydomain.com". Click "Refresh".
+<p><img src="https://i.imgur.com/bog8JSi.png" height ="80%" width="80%"/></p>
 <br />
 
-<p><img src="" height="80%" width="80%"/></p>
+The Client is now connected to the Domain!
+
+
+
+<h2>Setting Up Remote Desktop for Non-Administrative Users</h2>
+<br />
+Log in to the client as the new admin.
+<p><img src="https://i.imgur.com/KvHGbs2.png" height ="80%" width="80%"/></p>
+<br />
+Right-click the windows icon. Click "System"
+<p><img src="https://i.imgur.com/b3rCAZr.png" height ="80%" width="80%"/></p>
+<br />
+Scroll down and click "Remote desktop"
+<p><img src="https://i.imgur.com/fptWJmw.png" height ="80%" width="80%"/></p>
+<br />
+Click "Select users that can remotely access this PC".
+<p><img src="https://i.imgur.com/sBzytgM.png" height ="80%" width="80%"/></p>
+<br />
+Click "Add"
+<p><img src="https://i.imgur.com/wGFZ0XN.png" height ="80%" width="80%"/></p>
+<br />
+Type "Domain Users". Click "Check names" then "OK".
+<p><img src="https://i.imgur.com/bmbr0UF.png" height ="80%" width="80%"/></p>
+<br />
+Click "OK"
+<p><img src="https://i.imgur.com/07REEJf.png" height ="80%" width="80%"/></p>
 <br />
 
-<p><img src="" height="80%" width="80%"/></p>
+Remote Desktop is now ready! We can also do this process much faster using group updates. I will go over this in the future.
+
+
+
+<h2>Creating Additional Users</h2>
+
+Log in to the domain controller as an admin. Type "Powershell" in the search bar. Right-click "Windows Powershell ISE". Click "Run as administrator".
+<p><img src="https://i.imgur.com/nwolDnR.png" height ="80%" width="80%"/></p>
 <br />
+Click "Yes"
+<p><img src="https://i.imgur.com/IqZtByw.png" height ="80%" width="80%"/></p>
+<br />
+Click the icon that creates a new file
+<p><img src="https://i.imgur.com/VWQT2lK.png" height ="80%" width="80%"/></p>
+<br />
+Click the save icon.
+<p><img src="https://i.imgur.com/RG5rLM7.png" height ="80%" width="80%"/></p>
+<br />
+Save the file to the desktop and name it C"reate-users".
+<p><img src="https://i.imgur.com/lYtTCLF.png" height ="80%" width="80%"/></p>
+<br />
+
+
+
+Copy THIS SCRIPT into the application. Click the "run script" icon and click "OK".
+<p><img src="" height ="80%" width="80%"/></p>
+<br />
+
+
+
+
+Observe the new users being created.
+<p><img src="https://i.imgur.com/EXsQEX1.png" height ="80%" width="80%"/></p>
+<br />
+Press CTRL + "R" and type "dsa.msc" to open Active Directory Users and Computers.
+<p><img src="https://i.imgur.com/AiJgeuT.png" height ="80%" width="80%"/></p>
+<br />
+Double-click "_EMPLOYEES". Observe the new users and select one to login to the client virtual machine. For this lab the account "hiv.kug" will be used.
+<p><img src="https://i.imgur.com/lAMrwLW.png" height ="80%" width="80%"/></p>
+<br />
+Enter the username using the correct domain formatting.
+<p><img src="https://i.imgur.com/ZRk8Z0Q.png" height ="80%" width="80%"/></p>
+<br />
+Verify the account user by clicking the windows icon then clicking the profile icon.
+<p><img src="https://i.imgur.com/4h8fVpT.jpeg" height ="80%" width="80%"/></p>
+<br />
+
+The user has been successfully created!
+
+
+
